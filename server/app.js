@@ -1,6 +1,7 @@
 const express = require('express');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const graphQlHTTP = require('express-graphql'); // helps express understand graphql
 //we use it as middleware to a single route
@@ -11,6 +12,10 @@ mongoose.connection.once('open',()=>{
 });
 
 const app = express(); // create the app
+
+//allow cross origin requests
+app.use(cors());
+
 app.use('/graphql',graphQlHTTP({
     schema,
     graphiql:true
